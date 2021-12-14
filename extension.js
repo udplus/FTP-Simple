@@ -1142,10 +1142,14 @@ function getSelectedFTPFile(ftp, ftpConfig, path, placeHolder, addItems, filter,
       vsUtil.error("Failed to get server file list : " + err.toString());
       return;
     }
+    
+    console.log(list);
+
     var arr = vsUtil.makePickItemForFile(list, filter);
     arr = vsUtil.addItemForFile(arr, addItems, path, ftpConfig.path);
     vsUtil.pick(arr, placeHolder + ".  Now path '" + path + "'").then(function (item) {
       if (item) {
+        // console.log(item);
         if (item.label == "..") {
           getSelectedFTPFile(ftp, ftpConfig, pathUtil.getParentPath(path), placeHolder, addItems, filter, cb);
         } else if (item.type === "D") {
@@ -1310,6 +1314,8 @@ function isNewerThenLocal(ftp, ftpConfig, localPath, remotePath, cb){
 */
 function download(ftp, ftpConfig, remotePath, cb) {
   var localPath = pathUtil.join(REMOTE_WORKSPACE_TEMP_PATH, makeTempName(ftpConfig), remotePath);
+  console.log(localPath);
+  console.log(remotePath);
   ftp.download(remotePath, localPath, function (err) {
     if (err) {
       for (let o of err) {
@@ -1418,6 +1424,8 @@ function downloadRemoteWorkspace(ftp, ftpConfig, remotePath, cb, notMsg, notRecu
                 //if(!stat)
                 //{
                 let recursive = typeof notRecursive === 'number' && depth > 0 || notRecursive === false || notRecursive === null || notRecursive === undefined;
+                console.log(value);
+                console.log(value.type);
                 if (value.type === 'd') {
                   let tempDir = pathUtil.join(localPath, "[DIR] " + value.name);
                   if (recursive) {

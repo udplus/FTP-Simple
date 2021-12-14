@@ -189,7 +189,8 @@
     "easy-loop": "^1.7.2",
     "filesize": "^6.1.0",
     "fs-extra": "^9.1.0",
-    "minimatch": "^3.0.4"
+    "minimatch": "^3.0.4",
+    "remote_ftp": "^2.2.4"
   },
   "devDependencies": {
     "vscode": "^1.1.37"
